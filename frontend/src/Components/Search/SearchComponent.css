@@ -609,7 +609,13 @@
   font-feature-settings: unset;
 } 
 
-.search-box{
+.search-box {
   margin: 0 auto;
   padding: 0 auto;
+}
+
+.save-button {
+  float: right;
+  padding: 0 auto;
+  margin: 0 auto;
 }

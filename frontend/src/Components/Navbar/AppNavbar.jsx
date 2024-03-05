@@ -1,6 +1,6 @@
 import React from 'react';
-import './AppNavbar.css'
-import { NavLink } from 'react-router-dom'
+import './AppNavbar.css';
+import { NavLink } from 'react-router-dom';
 import GitSearchIcon from '../Assets/GitSearch.png'; // Correct way to import a PNG image
 
 const AppNavbar = (props) => {
@@ -17,10 +17,13 @@ return (
               <NavLink to="/">Home</NavLink>
             </li>
             <li>
-              <NavLink to="/blog">Blog</NavLink>
+              <NavLink to="/blog">Search</NavLink>
             </li>
             <li>
-              <NavLink to="/projects">Projects</NavLink>
+              <NavLink to="/favorites">Favorites</NavLink>
+            </li>
+            <li>
+              <NavLink to="/projects">Github</NavLink>
             </li>
           </ul>
         </div>

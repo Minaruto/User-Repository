@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import _ from 'lodash';
 import Pagination from '../Pagination/Pagination';
+import Heart from "react-animated-heart";
+import './SearchComponent.css'
 
 const SearchComponent = () => {
 
@@ -9,6 +11,8 @@ const SearchComponent = () => {
     const [loading, setLoading] = useState(true);
     const [currentPage, setCurrentPage] = useState(1);
     const usersPerPage = 12;
+    const [isClick, setClick] = useState(false);
+    const [favorites, setFavorites] = useState([]);
 
     const fetchUsers = async (query) => {
         if (!query) {
@@ -52,6 +56,24 @@ const SearchComponent = () => {
     const indexOfFirstUser = indexOfLastUser - usersPerPage;
     const currentUsers = users.slice(indexOfFirstUser, indexOfLastUser);
     const nPages = Math.ceil(users.length / usersPerPage);
+
+    const toggleFavorite = (userId) => {
+        setFavorites((currentFavorites) =>
+          currentFavorites.includes(userId)
+            ? currentFavorites.filter((id) => id !== userId)
+            : [...currentFavorites, userId]
+        );
+      };
+
+    useEffect(() => {
+    const storedFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
+    setFavorites(storedFavorites);
+    }, []);
+
+    useEffect(() => {
+        localStorage.setItem('favorites', JSON.stringify(favorites));
+      }, [favorites]);
+    
 
  
     return (
@@ -102,8 +124,13 @@ const SearchComponent = () => {
              <div className="user-grid">
                  {currentUsers.map(user => (
                  <div className="user-card" key={user.login}>
+                    <div className='save-button'>
+                    <Heart isClick={favorites.includes(user.login)} onClick={() => toggleFavorite(user.login)}/>
+                    </div>
+                    <div>
                      <img src={user.avatar_url} alt={user.login} />
                      <h3>{user.login}</h3>
+                    </div>
                  </div>
              ))}
              </div>
